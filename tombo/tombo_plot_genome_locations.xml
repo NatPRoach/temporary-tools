@@ -30,9 +30,9 @@
         #if $include_control.include_control_bool:
             --control-fast5-basedirs ./fast5s_control/ 
         #end if
-        --genome-locations $genome_locations
+        --genome-locations '$genome_locations'
         --pdf-filename '$output' 
-        '$model_type'
+        $model_type
         --overplot-threshold '$overplot_threshold'
         --overplot-type '$overplot_type'
         --num-bases '$num_bases'
@@ -42,8 +42,10 @@
     <inputs>
         <expand macro="raw_signals" />
         <conditional name="include_control">
-            <param name="include_control_bool" type="boolean" label="Plot control samples? (samples with only canonical nucleotides)"/>
-            <when value="true">
+            <param name="include_control_bool" type="select" label="Plot control samples? (samples with only canonical nucleotides)"/>
+                <option value="plot_control_samples" selected="true">Plot control samples</option>
+                <option value="dont_plot_control_samples">Don't plot control samples</option>
+            <when value="plot_control_samples">
                 <expand macro="control_signals" />
             </when>
         </conditional>
